@@ -1,0 +1,34 @@
+---
+- hosts: dev
+  vars:
+    KarabinerRepo: https://github.com/tekezo/Karabiner-Elements.git
+    thirdpartySource: ~/Documents/thirdparty-source
+  tasks: 
+  # - name: ensure github.com is a known host
+  #   lineinfile:
+  #     dest: ~/.ssh/known_hosts
+  #     create: yes
+  #     state: present
+  #     line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+  #     regexp: "^github\\.com" #     state: present
+  - name: install brew cask apps
+    homebrew_cask:
+      name: '{{item}}'
+      state: present
+    async: 1000
+    poll: 5
+    with_items:
+      # - karabiner-elements
+      - google-chrome
+      - evernote
+      - hammerspoon
+      - baiduinput
+      # - alfred
+  - name: install brew apps
+    homebrew:
+      name: '{{item}}'
+      state: present
+    async: 1000
+    poll: 5
+    with_items:
+      - tmux

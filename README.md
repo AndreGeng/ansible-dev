@@ -1,1 +1,1 @@
-test ssh key config
+mac dev setup
